@@ -1,12 +1,13 @@
 # NetworkTweaks
 Increases data transfer rate for networking and lets you configure how many peers to send data to each update tick. 
 
-Must be installed on both the server and client. The mod will version check and prevent you from connecting if it is not on both the server and client.
+Must be installed on both the server and client. The mod will version check and prevent you from connecting if it is not on both the server and client. 
+
+This mod is  not compatible with `ReturnToSender` by `ComfyMods`.
 
 ## Features
 - Configure the number of players to sync data to each update tick. Like `ReturnToSender` mod but configurable.
 - Increased data transfer rate limit (only works for steam).
-- 
 
 ## Donations/Tips
 My mods will always be free to use but if you feel like saying thanks you can tip/donate.
@@ -24,7 +25,7 @@ Source code is available on Github.
 If you would like to provide suggestions, make feature requests, or reports bugs and compatibility issues you can either open an issue on the Github repository or tag me (@searica) with a message on my discord [Searica's Mods](https://discord.gg/sFmGTBYN6n).
 
 ### Credits
-This mod was inspired by QoLPins by Tekla.
+This mod was inspired by ReturnToSender by ComfyMods and Network by smoothbrain.
 
 ## Shameless Self Plug (Other Mods By Me)
 If you like this mod you might like some of my other ones.
@@ -38,7 +39,10 @@ If you like this mod you might like some of my other ones.
 #### Gameplay Mods
 - [CameraTweaks](https://thunderstore.io/c/valheim/p/Searica/CameraTweaks/)
 - [DodgeShortcut](https://thunderstore.io/c/valheim/p/Searica/DodgeShortcut/)
+- [DiscoveryPins](https://thunderstore.io/c/valheim/p/Searica/DiscoveryPins/)
 - [FortifySkillsRedux](https://thunderstore.io/c/valheim/p/Searica/FortifySkillsRedux/)
+- [OpenSesame](https://thunderstore.io/c/valheim/p/Searica/OpenSesame/)
 - [ProjectileTweaks](https://thunderstore.io/c/valheim/p/Searica/ProjectileTweaks/)
 - [SkilledCarryWeight](https://thunderstore.io/c/valheim/p/Searica/SkilledCarryWeight/)
 - [SafetyStatus](https://thunderstore.io/c/valheim/p/Searica/SafetyStatus/)
+- [WatchWhereYouStab](https://thunderstore.io/c/valheim/p/Searica/WatchWhereYouStab/)
