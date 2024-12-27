@@ -11,6 +11,14 @@
 			<td align="center">0.1.2</td>
 			<td align="left">
 				<ul>
+					<li>Increased max value of Peers Per Update to 50.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">0.1.2</td>
+			<td align="left">
+				<ul>
 					<li>Updated Readme with more incompatible mods.</li>
 					<li>Added incompatible mod check and warning on startup.</li>
 				</ul>

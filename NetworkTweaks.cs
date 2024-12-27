@@ -19,7 +19,7 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
     public const string PluginName = "NetworkTweaks";
     internal const string Author = "Searica";
     public const string PluginGUID = $"{Author}.Valheim.{PluginName}";
-    public const string PluginVersion = "0.1.2";
+    public const string PluginVersion = "0.1.3";
 
     internal static NetworkTweaks Instance;
     internal static ConfigFile ConfigFile;
@@ -60,11 +60,9 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
             10,
             "Number of peers to sync data to each update tick. Vanilla default is 1."
             + " The higher this is the more data needs to be transferred each update tick.",
-            new AcceptableValueRange<int>(1, 20),
+            new AcceptableValueRange<int>(1, 50),
             synced: true
         );
-
-
     }
 
 
