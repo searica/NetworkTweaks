@@ -3,7 +3,7 @@ Increases data transfer rate for networking and lets you configure how many peer
 
 Must be installed on both the server and client. The mod will version check and prevent you from connecting if it is not on both the server and client. 
 
-This mod is  not compatible with `ReturnToSender` by `ComfyMods`.
+This mod is  not compatible with `ReturnToSender` by `ComfyMods` and `Network` by `smoothbrain`. This mod is also probably incompatible with other networking mods, I have not tested them.
 
 Has a built-in file watcher so you can change configs by editing the config file on disk or via an in-game config manager.
 
