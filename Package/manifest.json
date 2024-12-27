@@ -1,7 +1,7 @@
 {
   "name": "NetworkTweaks",
   "author": "Searica",
-  "version_number": "0.1.0",
+  "version_number": "0.1.1",
   "website_url": "https://discord.gg/sFmGTBYN6n",
   "description": "Increases data transfer rate for networking and lets you configure how many peers to send data to each update tick.",
   "dependencies": [

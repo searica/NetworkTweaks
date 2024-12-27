@@ -5,6 +5,8 @@ Must be installed on both the server and client. The mod will version check and 
 
 This mod is  not compatible with `ReturnToSender` by `ComfyMods`.
 
+Has a built-in file watcher so you can change configs by editing the config file on disk or via an in-game config manager.
+
 ## Features
 - Configure the number of players to sync data to each update tick. Like `ReturnToSender` mod but configurable.
 - Increased data transfer rate limit (only works for steam).

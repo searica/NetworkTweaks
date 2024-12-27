@@ -16,7 +16,7 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
     public const string PluginName = "NetworkTweaks";
     internal const string Author = "Searica";
     public const string PluginGUID = $"{Author}.Valheim.{PluginName}";
-    public const string PluginVersion = "0.1.0";
+    public const string PluginVersion = "0.1.1";
 
     internal static NetworkTweaks Instance;
     internal static ConfigFile ConfigFile;
@@ -38,7 +38,6 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
 
         // Re-initialization after reloading config and don't save since file was just reloaded
         Config.SetupWatcher();
-        Config.CheckForConfigManager();
     }
 
     internal void SetUpConfigEntries()

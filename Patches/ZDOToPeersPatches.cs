@@ -32,8 +32,7 @@ internal static class ZDOToPeersPatches
         {
             return;
         }
-        int nPeers = 5;
-
+        
         zdoManager.m_sendTimer += dt;
         if (zdoManager.m_sendTimer < 0.05f)
         {
@@ -43,14 +42,14 @@ internal static class ZDOToPeersPatches
         zdoManager.m_sendTimer = 0f;
         List<ZDOMan.ZDOPeer> peers = zdoManager.m_peers;
         int currentPeer = zdoManager.m_nextSendPeer;
-        int stopAtPeer = Math.Min(currentPeer + nPeers, count);
+        int stopAtPeer = Math.Min(currentPeer + NetworkTweaks.Instance.PeersPerUpdate.Value, count);
         for (int i = currentPeer; i < stopAtPeer; i++)
         {
             zdoManager.SendZDOs(peers[i], flush: false);
         }
 
         // reset nextSendPeer if end of peer list was reached.
-        zdoManager.m_nextSendPeer = currentPeer < count ? currentPeer : 0;
+        zdoManager.m_nextSendPeer = stopAtPeer < count ? stopAtPeer : 0;
     }
 }
 
