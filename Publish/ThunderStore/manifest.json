@@ -1,0 +1,11 @@
+{
+  "name": "DiscoveryPins",
+  "author": "Searica",
+  "version_number": "0.1.0",
+  "website_url": "https://discord.gg/sFmGTBYN6n",
+  "description": "Increases data transfer rate for networking and lets you configure how many peers to send data to each update tick.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2202",
+    "ValheimModding-Jotunn-2.22.0"
+  ]
+}
