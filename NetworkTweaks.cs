@@ -6,17 +6,20 @@ using Jotunn.Utils;
 using Configs;
 using Logging;
 
+
 namespace NetworkTweaks;
 
 [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
 [BepInDependency(Jotunn.Main.ModGuid, Jotunn.Main.Version)]
+[BepInDependency(ModCompat.NetworkGUID, BepInDependency.DependencyFlags.SoftDependency)]
+[BepInDependency(ModCompat.ReturnToSenderGUID, BepInDependency.DependencyFlags.SoftDependency)]
 [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Patch)]
 internal sealed class NetworkTweaks : BaseUnityPlugin
 {
     public const string PluginName = "NetworkTweaks";
     internal const string Author = "Searica";
     public const string PluginGUID = $"{Author}.Valheim.{PluginName}";
-    public const string PluginVersion = "0.1.1";
+    public const string PluginVersion = "0.1.2";
 
     internal static NetworkTweaks Instance;
     internal static ConfigFile ConfigFile;
@@ -33,6 +36,15 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
 
         Config.Init(PluginGUID, false);
         SetUpConfigEntries();
+        Config.Save();
+        Config.SaveOnConfigSet = true;
+
+        if (ModCompat.HasIncompatibleMods())
+        {
+            Log.LogWarning($"Incompatible mods detected, {PluginName} will not load!");
+            return;
+        }
+
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), harmonyInstanceId: PluginGUID);
         Game.isModded = true;
 
