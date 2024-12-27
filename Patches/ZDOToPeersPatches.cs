@@ -41,7 +41,7 @@ internal static class ZDOToPeersPatches
 
         zdoManager.m_sendTimer = 0f;
         List<ZDOMan.ZDOPeer> peers = zdoManager.m_peers;
-        int currentPeer = zdoManager.m_nextSendPeer;
+        int currentPeer = Math.Max(zdoManager.m_nextSendPeer, 0);
         int stopAtPeer = Math.Min(currentPeer + NetworkTweaks.Instance.PeersPerUpdate.Value, count);
         for (int i = currentPeer; i < stopAtPeer; i++)
         {
