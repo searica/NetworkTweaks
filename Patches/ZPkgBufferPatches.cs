@@ -39,11 +39,11 @@ internal static class ZPkgBufferPatches
     /// <param name="peer"></param>
     [HarmonyPostfix]
     [HarmonyPatch(typeof(ZDOMan), nameof(ZDOMan.AddPeer))]
-    private static void ParseBufferedZPackages(ZDOMan __instance, ZNetPeer peer)
+    private static void ParseBufferedZPackages(ZDOMan __instance, ZNetPeer netPeer)
     {
         foreach (ZPackage pkg in zpkgBuffer)
         {
-            __instance.RPC_ZDOData(peer.m_rpc, pkg);
+            __instance.RPC_ZDOData(netPeer.m_rpc, pkg);
         }
         zpkgBuffer.Clear();
     }
