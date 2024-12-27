@@ -8,7 +8,15 @@
 			<th align="center">Notes</th>
 		</tr>
 		<tr>
-			<td align="center">0.1.2</td>
+			<td align="center">0.1.4</td>
+			<td align="left">
+				<ul>
+					<li>Fix errors being thrown due to out of range exception.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td align="center">0.1.3</td>
 			<td align="left">
 				<ul>
 					<li>Increased max value of Peers Per Update to 50.</li>
