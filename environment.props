@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<AfterTargets>Build</AfterTargets>
+		<Pdb2MdbPath Condition="!Exists('$(Pdb2MdbPath)')">$(ProjectDir)\Libraries\Debug\pdb2mdb.exe</Pdb2MdbPath>
+		<r2ModManPath>$(AppData)\r2modmanPlus-local\Valheim\profiles</r2ModManPath>
+		<ModProfilePath>$(r2ModManPath)\Mod-Debug</ModProfilePath>
+		
+		<!-- Needs to be your path to the base Valheim folder -->
+		<VALHEIM_INSTALL Condition="!Exists('$(VALHEIM_INSTALL)')">c:\Program Files (x86)\Steam\steamapps\common\Valheim</VALHEIM_INSTALL>
+		<VALHEIM_SERVER Condition="!Exists('$(VALHEIM_SERVERR)')">C:\Program Files (x86)\Steam\steamapps\common\Valheim dedicated server</VALHEIM_SERVER>
+		<STEAMWORKS Condition="!Exists('$(STEAMWORKS)')"></STEAMWORKS>
+		<BEPINEX_PATH>$(ModProfilePath)\BepInEx</BEPINEX_PATH>
+		
+		<!-- This is the folder where your build gets copied to when using the post-build automations -->
+		<MOD_DEPLOYPATH>$(BEPINEX_PATH)\plugins</MOD_DEPLOYPATH>
+		<SERVER_DEPLOYPATH>$(VALHEIM_SERVER)\BepInEx\plugins</SERVER_DEPLOYPATH>
+
+		<CopyToServer>false</CopyToServer>
+		<CopyResources>false</CopyResources>		
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Reference Include="com.rlabrecque.steamworks.net">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\com.rlabrecque.steamworks.net_publicized.dll</HintPath>
+			<SpecificVersion>False</SpecificVersion>
+		</Reference>
+	</ItemGroup>
+</Project>

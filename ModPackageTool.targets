@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<PackageDir>$(ProjectDir)Package</PackageDir>
+		<PublishDir>$(PojectDir)Publish</PublishDir>
+		<ProjectResourcesDir>$(ProjectDir)\Resources</ProjectResourcesDir>
+		<SolutionResourcesDir>$(SolutionDir)\Resources</SolutionResourcesDir>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectResources Include="$(ProjectResourcesDir)\*.png" />
+		<SolutionResources Include="$(SolutionResourcesDir)\*.png" />
+		<PackageFiles Include="$(PackageDir)\*.*" />
+	</ItemGroup>
+	<Target Name="CreateMdbFile" BeforeTargets="CopyDLLToPlugins" Condition="'$(Configuration)' == 'Debug'">
+		<Message Text="Creating the mdb debug file" Importance="high" Condition="Exists('$(Pdb2MdbPath)')" />
+		<Delete Files="$(TargetPath).mdb" />
+		<Exec Command="$(Pdb2MdbPath) $(TargetPath)" Condition="Exists('$(Pdb2MdbPath)')" />
+		<Message Text="Creation succeeded" Importance="high" Condition="'$(MSBuildLastTaskResult)' == 'True' AND Exists('$(TargetPath).mdb')" />
+	</Target>
+
+	<Target Name="CopyDLLToPlugins" AfterTargets="$(AfterTargets)" Condition="'$(Configuration)' == 'Debug'">
+		<Message Text="Copying DLL file to plugins" Importance="high" />
+		<MakeDir Directories="$(MOD_DEPLOYPATH)\$(AssemblyName)" />
+		<Message Text="Copying $(TargetFileName) to $(MOD_DEPLOYPATH)\$(AssemblyName)" Importance="high" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(MOD_DEPLOYPATH)\$(AssemblyName)" />
+		<Message Text="Copying $(TargetFileName).mdb to $(MOD_DEPLOYPATH)\$(AssemblyName)" Importance="high" Condition="Exists('$(TargetPath).mdb')" />
+		<Copy SourceFiles="$(TargetPath).mdb" DestinationFolder="$(MOD_DEPLOYPATH)\$(AssemblyName)" Condition="Exists('$(TargetPath).mdb')" />
+		<Message
+			Text="Copying $(AssemblyName).pdb to $(MOD_DEPLOYPATH)\$(AssemblyName)"
+			Importance="high" Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+		<Copy
+			SourceFiles="$(TargetDir)$(AssemblyName).pdb"
+			DestinationFolder="$(MOD_DEPLOYPATH)\$(AssemblyName)"
+			Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+		<Message Text="Copy succeeded" Importance="high" />
+	</Target>
+
+	<Target Name="CopyResourcesToPlugins"
+			AfterTargets="CopyDLLToPlugins"
+			Condition="'$(Configuration)' == 'Debug' And '$(CopyResources)' == 'true'">
+		<PropertyGroup>
+			<OutputResources>$(MOD_DEPLOYPATH)\$(AssemblyName)</OutputResources>
+		</PropertyGroup>
+
+		<Message Text="Copying Resources directory to $(OutputResources)" Importance="high" />
+		<MakeDir Directories="$(OutputResources)" />
+
+		<Message
+			Text="Copying $(ProjectResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(ProjectResourcesDir)')" />
+		<Copy
+			SourceFiles="@(ProjectResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(ProjectResources)')"
+			SkipUnchangedFiles="true" />
+
+		<Message
+			Text="Copying $(SolutionResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(SolutionResourcesDir)') AND !Exists('@(ProjectResources)')" />
+		<Copy
+			SourceFiles="@(SolutionResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(SolutionResources)') AND !Exists('@(ProjectResources)')"
+			SkipUnchangedFiles="true" />
+
+		<Message Text="Copy succeeded" Importance="high" />
+	</Target>
+
+	<Target Name="CoppyDLLToServer"
+			AfterTargets="CopyDLLToPlugins"
+			Condition="'$(Configuration)' == 'Debug' And '$(CopyToServer)' == 'true'">
+		<Message Text="Copying DLL file to server" Importance="high" />
+		<MakeDir Directories="$(SERVER_DEPLOYPATH)\$(AssemblyName)" />
+
+		<Message
+			Text="Copying $(TargetFileName) to $(SERVER_DEPLOYPATH)\$(AssemblyName)"
+			Importance="high" />
+		<Copy
+			SourceFiles="$(TargetPath)"
+			DestinationFolder="$(SERVER_DEPLOYPATH)\$(AssemblyName)" />
+
+		<Message
+			Text="Copying $(TargetFileName).mdb to $(SERVER_DEPLOYPATH)\$(AssemblyName)"
+			Importance="high"
+			Condition="Exists('$(TargetPath).mdb')" />
+		<Copy
+			SourceFiles="$(TargetPath).mdb"
+			DestinationFolder="$(SERVER_DEPLOYPATH)\$(AssemblyName)"
+			Condition="Exists('$(TargetPath).mdb')" />
+
+		<Message
+			Text="Copying $(AssemblyName).pdb to $(SERVER_DEPLOYPATH)\$(AssemblyName)"
+			Importance="high"
+			Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+		<Copy
+			SourceFiles="$(TargetDir)$(AssemblyName).pdb"
+			DestinationFolder="$(SERVER_DEPLOYPATH)\$(AssemblyName)"
+			Condition="Exists('$(TargetDir)$(AssemblyName).pdb')" />
+		<Message Text="Copy succeeded" Importance="high" />
+	</Target>
+
+	<Target Name="CopyResourcesToServer"
+			AfterTargets="CopyDLLToServer"
+			Condition="'$(Configuration)' == 'Debug' And '$(CopyResources)' == 'true'">
+		<PropertyGroup>
+			<OutputResources>$(SERVER_DEPLOYPATH)\$(AssemblyName)</OutputResources>
+		</PropertyGroup>
+
+		<Message Text="Copying Resources directory to $(OutputResources)" Importance="high" />
+		<MakeDir Directories="$(OutputResources)" />
+
+		<Message
+			Text="Copying $(ProjectResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(ProjectResourcesDir)')" />
+		<Copy
+			SourceFiles="@(ProjectResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(ProjectResources)')"
+			SkipUnchangedFiles="true" />
+
+		<Message
+			Text="Copying $(SolutionResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(SolutionResourcesDir)') AND !Exists('@(ProjectResources)')" />
+		<Copy
+			SourceFiles="@(SolutionResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(SolutionResources)') AND !Exists('@(ProjectResources)')"
+			SkipUnchangedFiles="true" />
+
+		<Message Text="Copy succeeded" Importance="high" />
+	</Target>
+
+	<Target Name="CreateNexusPackage" AfterTargets="$(AfterTargets)" Condition="'$(Configuration)' == 'Release'">
+		<PropertyGroup>
+			<OutputResources>$(PublishDir)\Nexus</OutputResources>
+		</PropertyGroup>
+		<Message Text="Creating Nexus package" Importance="high" />
+		<MakeDir Directories="$(PublishDir)\Nexus" />
+		<MakeDir Directories="$(OutputResources)" />
+
+		<Message Text="Copying $(TargetFileName) to $(PublishDir)\Nexus" Importance="high" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PublishDir)\Nexus" />
+
+		<Message
+			Text="Copying $(ProjectResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(ProjectResourcesDir)') AND '$(CopyResources)' == 'true'" />
+		<Copy
+			SourceFiles="@(ProjectResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(ProjectResources)') AND '$(CopyResources)' == 'true'"
+			SkipUnchangedFiles="true" />
+
+		<Message
+			Text="Copying $(SolutionResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(SolutionResourcesDir)') AND !Exists('@(ProjectResources)') AND '$(CopyResources)' == 'true'" />
+		<Copy
+			SourceFiles="@(SolutionResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(SolutionResources)') AND !Exists('@(ProjectResources)') AND '$(CopyResources)' == 'true'"
+			SkipUnchangedFiles="true" />
+
+		<Message Text="Copy succeeded" Importance="high" />
+
+		<Message Text="Compressing..." Importance="high" />
+		<Exec Command="powershell.exe -Command &quot;Compress-Archive -Path &apos;$(PublishDir)\Nexus\*&apos; -DestinationPath &apos;$(PublishDir)\Nexus\$(AssemblyName).zip&apos;&quot; -Force" Condition="'$(OS)' == 'Windows_NT'" />
+		<Message Text="Nexus package created" Importance="high" />
+	</Target>
+
+	<Target Name="CreateThunderStorePackage" AfterTargets="$(AfterTargets)" Condition="'$(Configuration)' == 'Release'">
+		<PropertyGroup>
+			<OutputResources>$(PublishDir)\ThunderStore</OutputResources>
+		</PropertyGroup>
+
+		<Message Text="Creating ThunderStore package" Importance="high" />
+		<MakeDir Directories="$(PublishDir)\ThunderStore" />
+		<MakeDir Directories="$(OutputResources)" />
+
+		<Message Text="Copying $(TargetFileName) to $(PublishDir)\ThunderStore" Importance="high" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PublishDir)\ThunderStore" />
+
+		<Message Text="Copying $(ProjectDir)README.md to $(PublishDir)\ThunderStore" Importance="high" Condition="Exists('$(ProjectDir)README.md')" />
+		<Copy SourceFiles="$(ProjectDir)README.md" DestinationFolder="$(PublishDir)\ThunderStore" Condition="Exists('$(ProjectDir)README.md')" />
+
+		<Message Text="Copying Package files to $(PublishDir)\ThunderStore" Importance="high" />
+		<Message
+			Text="Copying @(PackageFiles) to  $(PublishDir)\ThunderStore"
+			Importance="high"
+			Condition="Exists('@(PackageFiles)')" />
+		<Copy
+			SourceFiles="@(PackageFiles)"
+			DestinationFolder="$(PublishDir)\ThunderStore"
+			Condition="Exists('@(PackageFiles)') "
+			SkipUnchangedFiles="true" />
+
+		<Message
+			Text="Copying $(ProjectResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(ProjectResourcesDir)') And '$(CopyResources)' == 'true'" />
+		<Copy
+			SourceFiles="@(ProjectResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(ProjectResources)') And '$(CopyResources)' == 'true'"
+			SkipUnchangedFiles="true" />
+
+		<Message
+			Text="Copying $(SolutionResourcesDir) to $(OutputResources)"
+			Importance="high"
+			Condition="Exists('$(SolutionResourcesDir)') AND !Exists('@(ProjectResources)') And '$(CopyResources)' == 'true'" />
+		<Copy
+			SourceFiles="@(SolutionResources)"
+			DestinationFolder="$(OutputResources)"
+			Condition="Exists('@(SolutionResources)') AND !Exists('@(ProjectResources)') And '$(CopyResources)' == 'true'"
+			SkipUnchangedFiles="true" />
+		<Message Text="Copy succeeded" Importance="high" />
+
+		<Message Text="Compressing..." Importance="high" />
+		<Exec Command="powershell.exe -Command &quot;Compress-Archive -Path &apos;$(PublishDir)\ThunderStore\*&apos; -DestinationPath &apos;$(PublishDir)\ThunderStore\$(AssemblyName).zip&apos;&quot; -Force" Condition="'$(OS)' == 'Windows_NT'" />
+
+		<Message Text="ThunderStore package created" Importance="high" />
+	</Target>
+</Project>
