@@ -3,7 +3,7 @@ using BepInEx;
 using BepInEx.Configuration;
 using HarmonyLib;
 using Jotunn.Utils;
-using Configs;
+using Jotunn.Extensions;
 using Logging;
 
 
@@ -19,7 +19,7 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
     public const string PluginName = "NetworkTweaks";
     internal const string Author = "Searica";
     public const string PluginGUID = $"{Author}.Valheim.{PluginName}";
-    public const string PluginVersion = "0.1.4";
+    public const string PluginVersion = "0.1.5";
 
     internal static NetworkTweaks Instance;
     internal static ConfigFile ConfigFile;
@@ -34,7 +34,8 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
         ConfigFile = Config;
         Log.Init(Logger);
 
-        Config.Init(PluginGUID, false);
+  
+        Config.SaveOnConfigSet = false;
         SetUpConfigEntries();
         Config.Save();
         Config.SaveOnConfigSet = true;
@@ -47,9 +48,6 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
 
         Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), harmonyInstanceId: PluginGUID);
         Game.isModded = true;
-
-        // Re-initialization after reloading config and don't save since file was just reloaded
-        Config.SetupWatcher();
     }
 
     internal void SetUpConfigEntries()
@@ -60,7 +58,7 @@ internal sealed class NetworkTweaks : BaseUnityPlugin
             10,
             "Number of peers to sync data to each update tick. Vanilla default is 1."
             + " The higher this is the more data needs to be transferred each update tick.",
-            new AcceptableValueRange<int>(1, 50),
+            acceptableValues: new AcceptableValueRange<int>(1, 50),
             synced: true
         );
     }
