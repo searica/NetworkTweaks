@@ -54,9 +54,7 @@
 		<Content Include="Package\icon.png" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="JotunnLib" Version="2.22.0" />
-		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+		<PackageReference Include="JotunnLib" Version="2.24.2" />
 	</ItemGroup>
 	<ItemGroup>
 		<Folder Include="Publish\Nexus\" />

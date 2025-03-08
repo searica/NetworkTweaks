@@ -16,13 +16,17 @@
 		<MOD_DEPLOYPATH>$(BEPINEX_PATH)\plugins</MOD_DEPLOYPATH>
 		<SERVER_DEPLOYPATH>$(VALHEIM_SERVER)\BepInEx\plugins</SERVER_DEPLOYPATH>
 
+		<!--  For adding refs that Jotunn does not -->
+		<Public_Assemblies  Condition="!Exists('$(Public_Assemblies)')">$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies</Public_Assemblies>
+
+
 		<CopyToServer>false</CopyToServer>
 		<CopyResources>false</CopyResources>		
 	</PropertyGroup>
 	
 	<ItemGroup>
 		<Reference Include="com.rlabrecque.steamworks.net">
-			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\publicized_assemblies\com.rlabrecque.steamworks.net_publicized.dll</HintPath>
+			<HintPath>$(Public_Assemblies)\com.rlabrecque.steamworks.net_publicized.dll</HintPath>
 			<SpecificVersion>False</SpecificVersion>
 		</Reference>
 	</ItemGroup>
