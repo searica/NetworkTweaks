@@ -21,7 +21,6 @@
 		<CopyToServer>false</CopyToServer>
 		<CopyResources>false</CopyResources>
 	</PropertyGroup>
-<<<<<<< Updated upstream
 	
 	<ItemGroup>
 		<Reference Include="com.rlabrecque.steamworks.net">
@@ -29,6 +28,4 @@
 			<SpecificVersion>False</SpecificVersion>
 		</Reference>
 	</ItemGroup>
-=======
->>>>>>> Stashed changes
 </Project>

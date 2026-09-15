@@ -53,4 +53,5 @@ If you like this mod you might like some of my other ones.
 - [WatchWhereYouStab](https://thunderstore.io/c/valheim/p/Searica/WatchWhereYouStab/)
 
 #### Networking Mods
+- [NetworkTweaks](https://thunderstore.io/c/valheim/p/Searica/NetworkTweaks/)
 - [OpenSesame](https://thunderstore.io/c/valheim/p/Searica/OpenSesame/)

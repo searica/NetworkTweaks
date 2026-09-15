@@ -8,6 +8,15 @@
 			<th align="center">Notes</th>
 		</tr>
 		<tr>
+			<td align="center">0.2.0</td>
+			<td align="left">
+				<ul>
+					<li>Updated for Deep North release!</li>
+					<li>Note: my ability to do multiplayer testing at the moment is limited so this is a simple recompile and update that I've confirmed loads without throwing errors.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
 			<td align="center">0.1.5</td>
 			<td align="left">
 				<ul>
